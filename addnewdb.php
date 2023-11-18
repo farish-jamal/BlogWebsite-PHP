@@ -12,7 +12,9 @@
               Your Blog Is Uploaded Sucessfully, Keep Writting!
           </div>';
         }else{
-            echo "Failed";
+            echo '<div class="alert alert-danger d-flex align-items-center" role="alert">
+            There is error in creation" '.mysqli_error($connection).'
+        </div>';
         }
     }
 ?>
