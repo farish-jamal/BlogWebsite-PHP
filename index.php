@@ -18,14 +18,6 @@
     <h2 class="text-center my-4 ">Latest Blog On Our Site</h2>
     <div class="container mt-4 d-flex align-items-center flex-wrap justify-content-center">
         <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
-        <?php include './mainblog.php'; ?>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
