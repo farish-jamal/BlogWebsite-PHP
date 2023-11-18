@@ -13,9 +13,11 @@
   <body>
     
   <?php include './navbar.php';?>
+  <?php include 'connection.php';?>
+  <?php include './addnewdb.php'; ?>
   <div class="container mt-4">
       <h2 class="text-center">Write Your New Blog</h2>
-      <form>
+      <form method="post" action="/blogs/addnewblog.php">
           <div class="mb-3">
             <label for="title" class="form-label">Title For Blog</label>
             <input type="text" class="form-control" id="title" name="title">
