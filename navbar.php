@@ -13,8 +13,8 @@
           <a class="nav-link" href="./addnewblog.php">Upload Blog</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" method="post" action="/blogs/index.php">
+        <input class="form-control me-2" type="search" name="search" placeholder="Search Author" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>
