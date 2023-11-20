@@ -1,5 +1,6 @@
 <?php include './connection.php'; ?>
 <?php
+
   if(isset($_POST['sno'])){
     $sno = $_POST['sno'];
     $titleEdit = $_POST['titleEdit'];
@@ -8,8 +9,9 @@
     $result = mysqli_query($connection, $sql);
     if($result){
       header("Location: index.php?show=$sno");
-      echo '<div class="alert alert-primary" role="alert">
-        Your Blog Is Uploaded Sucessfully, Keep Writting!
+    }else{
+      echo '<div class="alert alert-danger d-flex align-items-center" role="alert">
+      There is error in creation" '.mysqli_error($connection).'
       </div>';
     }
   }
@@ -55,7 +57,7 @@
             <p class="text-center mb-5">'.$row['description'].'</p>
             <div class="d-flex justify-content-center">
                 <button class="btn btn-primary mx-2 edit" id="'.$row['sno'].'">Edit This Blog</button>
-                <button class="btn btn-danger edit">Delete This Blog</button>
+                <button class="btn btn-danger delete" id="'.$row['sno'].'">Delete This Blog</button>
             </div>
             </div>';
         }
@@ -149,6 +151,19 @@
             authorEdit.value = author;
             sno.value = e.target.id;
             $('#editModal').modal('toggle');
+          })
+        });
+
+        deletes = document.getElementsByClassName("delete");
+        Array.from(deletes).forEach((element) => {
+          element.addEventListener('click', (e)=>{
+            content = e.target.parentNode.parentNode;
+            title = content.getElementsByTagName("h2")[0].innerText;
+            sno = e.target.id;
+            response = confirm(`Do You Want To Delete ${title} Blog?`);
+            if(response){
+              window.location = `/blogs/index.php?delete=${sno}`;
+            }
           })
         });
     </script>

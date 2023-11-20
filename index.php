@@ -17,6 +17,17 @@
     <?php include './connection.php'; ?>
     <h2 class="text-center my-4 ">Latest Blog On Our Site</h2>
     <div class="container mt-4 d-flex align-items-center flex-wrap justify-content-center">
+        <?php
+              if(isset($_GET['delete'])){
+                $sno = $_GET['delete'];
+                $sql = "DELETE FROM `blogdetail` WHERE `sno` = $sno";
+                $result = mysqli_query($connection, $sql);
+            
+                if($result){
+                  header("Location: index.php");
+                }
+              }
+        ?>
         <?php include './mainblog.php'; ?>
     </div>
 
