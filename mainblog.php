@@ -48,14 +48,14 @@
 
       if($result){
         foreach ($result as $row) {
-            echo '<div class="container mt-4">
-            <h2 class="text-center my-5">'.$row['title'].'</h2>
+            echo '<div class="container mt-2">
+            <h2 class="text-center my-2">'.$row['title'].'</h2>
             <div class="mx-5 d-flex justify-content-between align-items-center my-3">
               <p style="font-weight: 700">'.$row['author'].'</p>
               <p style="font-weight: 700">'.$row['date'].'</p>
             </div>
             <p class="text-center mb-5">'.$row['description'].'</p>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-4">
                 <button class="btn btn-primary mx-2 edit" id="'.$row['sno'].'">Edit This Blog</button>
                 <button class="btn btn-danger delete" id="'.$row['sno'].'">Delete This Blog</button>
             </div>
@@ -67,18 +67,24 @@
     $result = mysqli_query($connection,$sql);
   
     if($result){
-      foreach($result as $row){
-        echo '<div class="card m-2" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title text-justify">'.(strlen($row['title']) > 49 ? substr($row['title'],0,50).'...' : $row['title']).'</h5>
-          <p class="card-text text-justify">'.(strlen($row['description']) > 199 ? substr($row['description'],0,200).'...' : $row['description']).'</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <p><b>'.$row['author'].'</b></p>
-            <p><b>'.$row['date'].'</b></p>
+      if(mysqli_num_rows($result) == 0){
+        echo '<div><div class="alert alert-warning d-flex align-items-center" role="alert">There Is No Blog On Our Website Right Now, Please Write Blogs.</div>
+        <a href="/blogs/addnewblog.php" class="btn btn-primary d-block my-3">Add New Blog</a></div>';
+      }else{
+        foreach($result as $row){
+          echo '
+          <div class="card m-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title text-justify">'.(strlen($row['title']) > 49 ? substr($row['title'],0,50).'...' : $row['title']).'</h5>
+            <p class="card-text text-justify">'.(strlen($row['description']) > 199 ? substr($row['description'],0,200).'...' : $row['description']).'</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <p><b>'.$row['author'].'</b></p>
+              <p><b>'.$row['date'].'</b></p>
+            </div>
+            <a href="/blogs/index.php?show='.$row['sno'].'" class="btn btn-primary" style="width: 100%">Read Full Blog</a>
           </div>
-          <a href="/blogs/index.php?show='.$row['sno'].'" class="btn btn-primary" style="width: 100%">Read Full Blog</a>
-        </div>
-      </div>';
+        </div>';
+        }
       }
     }
   }
