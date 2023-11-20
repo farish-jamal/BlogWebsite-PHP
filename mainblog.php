@@ -1,5 +1,18 @@
 <?php include './connection.php'; ?>
 <?php
+  if(isset($_POST['sno'])){
+    $sno = $_POST['sno'];
+    $titleEdit = $_POST['titleEdit'];
+    $descriptionEdit = $_POST['descriptionEdit'];
+    $sql = "UPDATE `blogdetail` SET `title` = '$titleEdit', `description` = '$descriptionEdit' WHERE `sno` = $sno";
+    $result = mysqli_query($connection, $sql);
+    if($result){
+      header("Location: index.php?show=$sno");
+      echo '<div class="alert alert-primary" role="alert">
+        Your Blog Is Uploaded Sucessfully, Keep Writting!
+      </div>';
+    }
+  }
   if(isset($_POST['search'])){
     $search = $_POST['search'];
     $sql = "SELECT * FROM `blogdetail` WHERE `author` = '$search'";
@@ -7,7 +20,9 @@
     
     if($result){
       if(mysqli_num_rows($result) == 0){
-        echo "No";
+        echo '<div class="alert alert-warning" role="alert">
+         There is no author matching your search -> '.$search.'
+      </div>';
       }else{
         foreach($result as $row){
           echo '<div class="card m-2" style="width: 18rem;">
@@ -39,7 +54,7 @@
             </div>
             <p class="text-center mb-5">'.$row['description'].'</p>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-primary mx-2 edit">Edit This Blog</button>
+                <button class="btn btn-primary mx-2 edit" id="'.$row['sno'].'">Edit This Blog</button>
                 <button class="btn btn-danger edit">Delete This Blog</button>
             </div>
             </div>';
@@ -91,14 +106,15 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="post" action="/blogs/addnewblog.php">
+          <form method="post" action="/blogs/mainblog.php">
+              <input type="hidden" name="sno" id="sno">
               <div class="mb-3">
                 <label for="title" class="form-label">Title For Blog</label>
                 <input type="text" class="form-control" id="titleEdit" name="titleEdit">
               </div>
               <div class="mb-3">
                 <label for="author" class="form-label">Author Name</label>
-                <input type="text" class="form-control" id="authorEdit" name="authorEdit">
+                <input type="text" class="form-control" id="authorEdit" name="authorEdit" readonly>
               </div>
               <div class="mb-3">
                 <label for="description" class="form-label">Write Description For Blog</label>
@@ -131,6 +147,7 @@
             titleEdit.value = title;
             descriptionEdit.value = description;
             authorEdit.value = author;
+            sno.value = e.target.id;
             $('#editModal').modal('toggle');
           })
         });
