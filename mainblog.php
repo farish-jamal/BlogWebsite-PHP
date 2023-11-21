@@ -117,7 +117,7 @@
           <form method="post" action="/blogs/mainblog.php">
               <input type="hidden" name="sno" id="sno">
               <div class="mb-3">
-                <label for="title" class="form-label">Title For Blog</label>
+                <label for="title" class="form-label">Title Of Blog</label>
                 <input type="text" class="form-control" id="titleEdit" name="titleEdit">
               </div>
               <div class="mb-3">
